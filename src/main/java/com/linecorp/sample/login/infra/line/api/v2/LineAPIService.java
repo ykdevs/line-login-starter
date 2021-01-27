@@ -122,7 +122,7 @@ public class LineAPIService {
 
     private String getFriendShipParm(String friendship) {
         if ( "1".equals(friendship) ) {
-            return "&bot_prompt=normal";
+            return "&prompt=consent&bot_prompt=normal";
         } else {
             return "";
         }
