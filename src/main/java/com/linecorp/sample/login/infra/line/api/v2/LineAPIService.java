@@ -100,7 +100,8 @@ public class LineAPIService {
         }
     }
 
-    public String getLineWebLoginUrl(String state, String nonce, List<String> scopes) {
+    public String getLineWebLoginUrl(String state, String nonce,
+                                 List<String> scopes, String friendship) {
         final String encodedCallbackUrl;
         final String scope = String.join("%20", scopes);
 
@@ -113,9 +114,18 @@ public class LineAPIService {
         return "https://access.line.me/oauth2/v2.1/authorize?response_type=code"
                 + "&client_id=" + channelId
                 + "&redirect_uri=" + encodedCallbackUrl
+                + getFriendShipParm(friendship)
                 + "&state=" + state
                 + "&scope=" + scope
                 + "&nonce=" + nonce;
+    }
+
+    private String getFriendShipParm(String friendship) {
+        if ( "1".equals(friendship) ) {
+            return "&bot_prompt=normal";
+        } else {
+            return "";
+        }
     }
 
     public boolean verifyIdToken(String id_token, String nonce) {

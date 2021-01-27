@@ -57,12 +57,14 @@ public class WebController {
      * <p>Redirect to LINE Login Page</p>
      */
     @RequestMapping(value = "/gotoauthpage")
-    public String goToAuthPage(HttpSession httpSession){
+    public String goToAuthPage(HttpSession httpSession,
+           @RequestParam(value = "friendship", required = false) String friendship){
         final String state = CommonUtils.getToken();
         final String nonce = CommonUtils.getToken();
         httpSession.setAttribute(LINE_WEB_LOGIN_STATE, state);
         httpSession.setAttribute(NONCE, nonce);
-        final String url = lineAPIService.getLineWebLoginUrl(state, nonce, Arrays.asList("openid", "profile"));
+        final String url = lineAPIService.getLineWebLoginUrl(
+                state, nonce, Arrays.asList("openid", "profile"), friendship);
         return "redirect:" + url;
     }
 
