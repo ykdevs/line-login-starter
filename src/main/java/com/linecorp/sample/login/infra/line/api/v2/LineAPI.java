@@ -16,15 +16,12 @@
 package com.linecorp.sample.login.infra.line.api.v2;
 
 import com.linecorp.sample.login.infra.line.api.v2.response.AccessToken;
+import com.linecorp.sample.login.infra.line.api.v2.response.Friendship;
 import com.linecorp.sample.login.infra.line.api.v2.response.Verify;
+import com.linecorp.sample.login.infra.line.api.v2.response.Profile;
 
 import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.Field;
-import retrofit2.http.Headers;
-import retrofit2.http.Query;
+import retrofit2.http.*;
 
 /**
  * <p>LINE v2 API interface</p>
@@ -63,5 +60,12 @@ public interface LineAPI {
             @Field("client_id") String client_id,
             @Field("client_secret") String client_secret);
 
+    @GET("v2/profile")
+    Call<Profile> profile(
+            @Header("Authorization") String authHeader);
+
+    @GET("friendship/v1/status")
+    Call<Friendship> friendship(
+            @Header("Authorization") String authHeader);
 }
 

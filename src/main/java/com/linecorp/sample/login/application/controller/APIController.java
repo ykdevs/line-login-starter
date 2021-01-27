@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.linecorp.sample.login.infra.line.api.v2.LineAPIService;
 import com.linecorp.sample.login.infra.line.api.v2.response.AccessToken;
+import com.linecorp.sample.login.infra.line.api.v2.response.Friendship;
+import com.linecorp.sample.login.infra.line.api.v2.response.Profile;
 import com.linecorp.sample.login.infra.line.api.v2.response.Verify;
 
 @RestController
@@ -61,5 +63,15 @@ public class APIController {
         httpSession.setAttribute(WebController.ACCESS_TOKEN, accessToken);
     }
 
+    @RequestMapping("api/profile")
+    public Profile profile(HttpSession httpSession) {
+        final AccessToken token = getAccessToken(httpSession);
+        return lineAPIService.profile(token);
+    }
 
+    @RequestMapping("api/friendship")
+    public Friendship friendship(HttpSession httpSession) {
+        final AccessToken token = getAccessToken(httpSession);
+        return lineAPIService.friendship(token);
+    }
 }

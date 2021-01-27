@@ -26,6 +26,25 @@ $(document).ready(function() {
     });
   });
 
+  $("#profile").on("click", function(){
+    post("../api/profile").done(function(data) {
+      if(data.displayName) {
+        alert("Get Profile\nDisplayName : " + data.displayName + "\nuserId : " + data.userId);
+      } else {
+        alert("Get Profile Failed.");
+      }
+    });
+  });
+
+  $("#friendship").on("click", function(){
+    post("../api/friendship").done(function(data) {
+      if(data.friendFlag) {
+        alert("Get Friendship : " + data.friendFlag);
+      } else {
+        alert("Get Friendship Failed.");
+      }
+    });
+  });
 });
 
 

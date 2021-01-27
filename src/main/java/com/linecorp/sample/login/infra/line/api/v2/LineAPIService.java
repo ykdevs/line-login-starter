@@ -26,6 +26,8 @@ import org.springframework.stereotype.Component;
 import com.linecorp.sample.login.infra.http.Client;
 import com.linecorp.sample.login.infra.line.api.v2.response.AccessToken;
 import com.linecorp.sample.login.infra.line.api.v2.response.Verify;
+import com.linecorp.sample.login.infra.line.api.v2.response.Profile;
+import com.linecorp.sample.login.infra.line.api.v2.response.Friendship;
 
 import retrofit2.Call;
 
@@ -140,4 +142,13 @@ public class LineAPIService {
         return Client.getClient("https://api.line.me/", LineAPI.class, function);
     }
 
+    public Profile profile(final AccessToken accessToken) {
+        return getClient(t -> t.profile(
+                "Bearer " + accessToken.access_token));
+    }
+
+    public Friendship friendship(final AccessToken accessToken) {
+        return getClient(t -> t.friendship(
+                "Bearer " + accessToken.access_token));
+    }
 }
